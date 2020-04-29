@@ -1,13 +1,13 @@
 class ListaNegociacoes {
 
-    constructor(armadinha) {
+    constructor() {
         this._negociacoes = [];
-        this._armadilha = armadinha;
+        //this._armadilha = armadinha;
     }
 
     adiciona (negociacao) {
         this._negociacoes.push(negociacao);
-        this._armadilha(this);
+      //  this._armadilha(this);
         /* essa fução é utilizada para axecutar a função criada independente do contexto
         o primeiro paramêtro é qual a função que eu vou chamar, que nesse caso é a armadilha criada no NegociacaoControle para chamar o update;
         o segundo parâmetro diz em qual contexto que a função será executada, que seria o contexto na NegociacaoController passado no construtor
@@ -18,7 +18,7 @@ class ListaNegociacoes {
 
     apagar() {
         this._negociacoes = [];
-        this._armadilha(this);
+        //this._armadilha(this);
     }
 
     get negociacoes() {

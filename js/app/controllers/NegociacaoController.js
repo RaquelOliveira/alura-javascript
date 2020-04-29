@@ -5,17 +5,20 @@ class NegociacaoController {
         this._inputQuantidade = $("#quantidade");
         this._inputValor = $("#valor");
 
-        this._listaNegociacoes = new ListaNegociacoes( (model) => {
+       /* this._listaNegociacoes = new ListaNegociacoes( (model) => {
             // as arrowfuncions possuem um escopo léxico isso significa
             // isso significa que o this não mudará de acordo com quem chamar a função
             this._negociacoesView.update(model);
-        });
-        this._negociacoesView = new NegociacoesView($("#negociacoesView"));
-        this._negociacoesView.update(this._listaNegociacoes);
+        }); */
 
-        this._mensagem = new Mensagem();
-        this._mensagemView = new MensagemView($("#mensagemView"));
-        this._mensagemView.update(this._mensagem);
+        this._listaNegociacoes = new Bind(new ListaNegociacoes(),
+        new NegociacoesView($("#negociacoesView")),
+        'adiciona','apagar');
+    
+        this._mensagem =  new Bind(new Mensagem(),
+        new MensagemView($("#mensagemView")),
+        'texto');
+       
     }
 
     adiciona(event) {
@@ -23,23 +26,13 @@ class NegociacaoController {
         event.preventDefault();
 
         this._listaNegociacoes.adiciona(this._criarNegociacao());
-        this._limparFormulario();
-        //this._negociacoesView.update(this._listaNegociacoes);
         this._mensagem.texto = "Negociacao adicionada com sucesso";
-        this._mensagemView.update(this._mensagem);
-
-
-        console.log(DateHelper.dataParaTexto(this._listaNegociacoes.negociacoes[0].data));
-    
-
+        this._limparFormulario();
     }
 
     apaga() {
         this._listaNegociacoes.apagar();
-        //this._negociacoesView.update(this._listaNegociacoes);
-
         this._mensagem.texto = "Lista de Negociacoes apagadas";
-        this._mensagemView.update(this._mensagem);
     }
 
     _limparFormulario() {
